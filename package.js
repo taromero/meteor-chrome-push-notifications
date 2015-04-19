@@ -1,6 +1,6 @@
 Package.describe({
   name: 'canotto90:chrome-push-notifications',
-  version: '0.0.1',
+  version: '0.0.2',
   summary: 'Add push notifications for Chrome browsers',
   git: 'https://github.com/taromero/meteor-chrome-push-notifications.git',
   documentation: 'README.md'

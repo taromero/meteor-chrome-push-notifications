@@ -46,10 +46,12 @@ SubscriptionManager = function(pushButton) {
     }
     var subscriptionId = pushSubscription.subscriptionId
     // UnlinkSubscriptionFromUser()
+    console.warn('unsubscribing ', pushSubscription)
     return pushSubscription && pushSubscription.unsubscribe()
   }
 
   function updateUI() {
+    console.warn('unsubscribed')
     pushButton.disabled = false
     isPushEnabled = false
   }

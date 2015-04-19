@@ -3,7 +3,8 @@ registerServiceWorker = function() {
     navigator.serviceWorker.register('/service-worker.js')
       .then(checkPreconditions)
       .then(waitForServiceWorkerToBeReady)
-      .then(getPushManagerSubscription) // subscriptions are per device/browser, not per user. if there's an existing one, link it with current user.
+      // subscriptions are per device/browser, not per user. if there's an existing one, link it with current user.
+      .then(getPushManagerSubscription)
       .then(sendSubscriptionToServer)
       .then(enablePushOnUI)
       .catch(warn)
@@ -25,6 +26,8 @@ registerServiceWorker = function() {
     if (!subscription) {
       return;
     }
+    // change switch state
+    $('#push-button').attr('checked', 'checked')
 
     // call that resolves promise sending subscription to server
     console.log(subscription)

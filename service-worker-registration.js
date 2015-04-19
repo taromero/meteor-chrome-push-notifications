@@ -24,10 +24,12 @@ registerServiceWorker = function() {
 
   function sendSubscriptionToServer(subscription) {
     if (!subscription) {
+      isPushEnabled = false
       return;
     }
     // change switch state
     $('#push-button').attr('checked', 'checked')
+    isPushEnabled = true
 
     // call that resolves promise sending subscription to server
     console.log(subscription)
@@ -40,7 +42,6 @@ registerServiceWorker = function() {
   function enablePushOnUI() {
     var pushButton = document.querySelector('#push-button')
     pushButton.disabled = false
-    isPushEnabled = true
   }
 
   function checkPreconditions() {

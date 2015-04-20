@@ -1,4 +1,7 @@
-self.addEventListener('push', function(event) {
+self.addEventListener('push', showNotification)
+self.addEventListener('notificationclick', closeNotificationAndOpenWindow)
+
+function showNotification(event) {
   console.log('Received a push message', event)
 
   var title = 'Yay a message.'
@@ -8,14 +11,14 @@ self.addEventListener('push', function(event) {
 
   event.waitUntil(
     self.registration.showNotification(title, {
-      body: body,
-      icon: icon,
-      tag: tag
-    })
+    body: body,
+    icon: icon,
+    tag: tag
+  })
   )
-})
+}
 
-self.addEventListener('notificationclick', function(event) {
+function closeNotificationAndOpenWindow(event) {
   console.log('On notification click: ', event.notification.tag)
   // Android doesn’t close the notification when you click on it
   // See: http://crbug.com/463146
@@ -34,5 +37,4 @@ self.addEventListener('notificationclick', function(event) {
     if (clients.openWindow)
       return clients.openWindow('/')
   }))
-
-})
+}

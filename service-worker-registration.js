@@ -1,6 +1,6 @@
 registerServiceWorker = function() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
+    navigator.serviceWorker.register('/packages/canotto90_chrome-push-notifications/service-worker.js')
       .then(checkPreconditions)
       .then(waitForServiceWorkerToBeReady)
       // subscriptions are per device/browser, not per user. if there's an existing one, link it with current user.

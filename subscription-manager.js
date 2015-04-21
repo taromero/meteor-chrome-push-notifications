@@ -10,6 +10,7 @@ SubscriptionManager = function(pushButton) {
       navigator.serviceWorker.ready
         .then(getPushManagerSubscription)
         .then(checkAndUnsubscribe)
+        .then(removeSubscriptionFromServer)
         .then(updateUI)
         .catch(informUnsubscriptionError)
     }
@@ -32,7 +33,7 @@ SubscriptionManager = function(pushButton) {
           if (err) {
             reject(Error(err))
           } else {
-            resolve(res)
+            resolve('Subscription saved on server.')
           }
         })
       })
@@ -72,6 +73,19 @@ SubscriptionManager = function(pushButton) {
   function informUnsubscriptionError(e) {
     console.log('Unsubscription error: ', e)
     pushButton.disabled = false
+  }
+
+
+  function removeSubscriptionFromServer(subscription) {
+    return new Promise(function(resolve, reject) {
+      Meteor.call('remove_subscription', subscription.subscriptionId, function(err, res) {
+        if (err) {
+          reject(Error(err))
+        } else {
+          resolve(subscription)
+        }
+      })
+    })
   }
 }
 

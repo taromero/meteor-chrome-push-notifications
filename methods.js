@@ -5,6 +5,9 @@ Meteor.methods({
     }
     return true
   },
+  remove_subscription: function(subscriptionId) {
+    return PnSubscriptions.remove({ subscription_id: subscriptionId })
+  },
   broadcast_push_notifications: function() {
     subscription_ids = PnSubscriptions.find().map(getSubscriptionIds)
     HTTP.post('https://android.googleapis.com/gcm/send', {

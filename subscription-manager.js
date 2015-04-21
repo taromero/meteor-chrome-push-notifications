@@ -3,7 +3,7 @@ SubscriptionManager = function(pushButton) {
     subscribe: function() {
       navigator.serviceWorker.ready
         .then(getPushManagerSubscription)
-        .then(linkSubscriptionToUser) // currently just logging notification to console
+        .then(linkSubscriptionToUser)
         .catch(informSubscriptionError)
     },
     unsubscribe: function() {
@@ -23,7 +23,20 @@ SubscriptionManager = function(pushButton) {
     isPushEnabled = true
 
     console.log(subscription)
-    // return sendSubscriptionToServer(subscription)
+
+    return sendSubscriptionToServer(subscription)
+
+    function sendSubscriptionToServer(subscription) {
+      return new Promise(function(resolve, reject) {
+        Meteor.call('save_subscription', subscription.subscriptionId, function(err, res) {
+          if (err) {
+            reject(Error(err))
+          } else {
+            resolve(res)
+          }
+        })
+      })
+    }
   }
 
   function informSubscriptionError(e) {
